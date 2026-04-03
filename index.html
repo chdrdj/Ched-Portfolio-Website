@@ -1842,6 +1842,24 @@
           <h3>Dental Workflow Automation</h3>
         </div>
 
+        <div class="portfolio-card clickable reveal d2" onclick="openProjectModal('hvacfollowup')">
+          <img src="works/HVAC Follow-up & Service Reminder System.png" alt="AI HVAC Follow-up & Service Reminder Workflow" class="portfolio-img">
+          <span class="portfolio-badge badge-cyan">n8n</span>
+          <h3>AI HVAC Follow-up &amp; Service Reminder Workflow</h3>
+        </div>
+
+        <div class="portfolio-card clickable reveal d3" onclick="openProjectModal('hvacleadcapture')">
+          <img src="works/HVAC Lead Capture & Booking Pipeline.png" alt="AI HVAC Lead Capture & Booking Workflow" class="portfolio-img">
+          <span class="portfolio-badge badge-cyan">n8n</span>
+          <h3>AI HVAC Lead Capture &amp; Booking Workflow</h3>
+        </div>
+
+        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('hvacsuite')">
+          <img src="works/HVAC Complete Automation Suite.png" alt="HVAC Complete Automation Suite" class="portfolio-img">
+          <span class="portfolio-badge badge-cyan">n8n</span>
+          <h3>HVAC Complete Automation Suite</h3>
+        </div>
+
         <!-- Make -->
         <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('emailorganizer')">
           <img src="works/AI Email Attachment Organizer & Auto File Management Workflow (Make).png" alt="AI Email Attachment Organizer" class="portfolio-img">
@@ -2314,6 +2332,46 @@
           'Improved operational efficiency and organization'
         ],
         img: 'works/Dental Workflow Automation (n8n).png'
+      },
+      hvacfollowup: {
+        badge: 'n8n',
+        title: 'AI HVAC Follow-up & Service Reminder Workflow',
+        desc: 'I built an AI-powered follow-up and reminder system in n8n that ensures no HVAC leads or customers fall through the cracks. The workflow runs on a daily schedule, retrieves open quotes and upcoming services from Airtable, and uses AI to generate personalized follow-up messages. Depending on the customer\'s status, the system automatically sends emails via Gmail or SMS reminders via Twilio, while keeping records updated and organized.',
+        results: [
+          'Ensures every lead and customer receives timely follow-ups',
+          'Increases conversion rates on previously unresponsive quotes',
+          'Automates recurring service reminders for better customer retention',
+          'Eliminates manual tracking and outreach',
+          'Maintains clean, up-to-date records across the system'
+        ],
+        img: 'works/HVAC Follow-up & Service Reminder System.png'
+      },
+      hvacleadcapture: {
+        badge: 'n8n',
+        title: 'AI HVAC Lead Capture & Booking Workflow',
+        desc: 'I built an AI-powered HVAC lead management workflow in n8n that automates lead capture, qualification, and appointment booking. The workflow captures new leads from a form submission, sends an instant confirmation email via SendGrid, structures the data, and uses AI to score and qualify leads based on urgency, service type, and location. Qualified leads are automatically routed to booking through Calendly, while unqualified leads are stored for future nurturing. The system keeps the team informed in real time through Slack notifications and organizes data in Airtable.',
+        results: [
+          'Automates HVAC lead intake and qualification end-to-end',
+          'Prioritizes high-value and urgent leads using AI',
+          'Eliminates manual lead sorting and follow-ups',
+          'Improves response speed with instant email confirmations',
+          'Keeps teams aligned with real-time notifications'
+        ],
+        img: 'works/HVAC Lead Capture & Booking Pipeline.png'
+      },
+      hvacsuite: {
+        badge: 'n8n',
+        title: 'HVAC Complete Automation Suite',
+        desc: 'I built a fully automated AI-powered HVAC workflow in n8n that handles the entire customer lifecycle—from lead capture and qualification to follow-ups and service reminders. The system captures incoming leads, responds instantly, uses AI to prioritize opportunities, and ensures continuous engagement through automated emails and SMS reminders.',
+        results: [
+          'Automates the full HVAC sales and customer lifecycle',
+          'Instantly engages and qualifies new leads',
+          'Increases booking rates by prioritizing high-value opportunities',
+          'Improves customer retention with timely reminders',
+          'Eliminates manual follow-ups and scheduling tasks',
+          'Keeps teams informed in real time with Slack notifications'
+        ],
+        img: 'works/HVAC Complete Automation Suite.png'
       },
       emailorganizer: {
         badge: 'Make',
