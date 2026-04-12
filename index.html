@@ -919,6 +919,131 @@
     }
 
     /* ============================================================
+       CIRCULAR GALLERY
+    ============================================================ */
+    #gallery-stage {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      perspective: 2000px;
+      overflow: visible;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    #gallery-stage.dragging {
+      cursor: grabbing;
+    }
+    .gallery-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    .gallery-card {
+      position: absolute;
+      width: 280px;
+      height: 360px;
+      left: 50%;
+      top: 50%;
+      margin-left: -140px;
+      margin-top: -180px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      will-change: opacity;
+    }
+    .gallery-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      pointer-events: none;
+    }
+    .gallery-card-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem;
+      pointer-events: none;
+    }
+    .gallery-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.35;
+      margin: 0 0 0.3rem;
+    }
+    .gallery-card-cta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+    .gallery-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .gallery-arrow {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid #37f2e2;
+      background: rgba(10, 12, 20, 0.85);
+      color: #37f2e2;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 14px rgba(55, 242, 226, 0.25), inset 0 0 8px rgba(55, 242, 226, 0.05);
+      z-index: 10;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .gallery-arrow:hover {
+      background: rgba(55, 242, 226, 0.15);
+      transform: scale(1.12);
+      box-shadow: 0 0 24px rgba(55, 242, 226, 0.45), inset 0 0 10px rgba(55, 242, 226, 0.1);
+    }
+    .gallery-arrow:active {
+      transform: scale(0.93);
+    }
+    .gallery-hint {
+      text-align: center;
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .gallery-hint.hidden {
+      opacity: 0;
+    }
+
+    /* ============================================================
        TECH STACK SECTION (MARQUEE)
     ============================================================ */
     #stack {
@@ -1843,93 +1968,14 @@
         </p>
       </div>
 
-      <div class="portfolio-grid">
-
-        <!-- HVAC -->
-        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('hvacsuite')">
-          <img src="works/HVAC Complete Automation Suite.png" alt="HVAC Complete Automation Suite" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>HVAC Complete Automation Suite</h3>
+      <div class="gallery-wrapper">
+        <button class="gallery-arrow" id="galleryPrev" aria-label="Previous work">&#8592;</button>
+        <div id="gallery-stage">
+          <div class="gallery-ring" id="galleryRing"></div>
         </div>
-
-        <div class="portfolio-card clickable reveal d2" onclick="openProjectModal('hvacleadcapture')">
-          <img src="works/HVAC Lead Capture & Booking Pipeline.png" alt="AI HVAC Lead Capture & Booking Workflow" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>AI HVAC Lead Capture &amp; Booking Workflow</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d3" onclick="openProjectModal('hvacfollowup')">
-          <img src="works/HVAC Follow-up & Service Reminder System.png" alt="AI HVAC Follow-up & Service Reminder Workflow" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>AI HVAC Follow-up &amp; Service Reminder Workflow</h3>
-        </div>
-
-        <!-- n8n -->
-        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('receptionist')">
-          <img src="works/Ched AI Agent Receptionist.png" alt="Ched AI Agent Receptionist" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">AI Agent</span>
-          <h3>Ched AI Agent Receptionist</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d2" onclick="openProjectModal('facebook')">
-          <img src="works/Facebook AI Agent (n8n).png" alt="Facebook AI Agent" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>Facebook AI Agent</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d3" onclick="openProjectModal('jobassistant')">
-          <img src="works/AI Job Application Assistant (Job Scraper) and Resume Optimizer (n8n).png" alt="AI Job Application Assistant" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>AI Job Application Assistant + Resume Optimizer</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('dental')">
-          <img src="works/Dental Workflow Automation (n8n).png" alt="Dental Workflow Automation" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">n8n</span>
-          <h3>Dental Workflow Automation</h3>
-        </div>
-
-        <!-- Make -->
-        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('emailorganizer')">
-          <img src="works/AI Email Attachment Organizer & Auto File Management Workflow (Make).png" alt="AI Email Attachment Organizer" class="portfolio-img">
-          <span class="portfolio-badge badge-purple">Make</span>
-          <h3>AI Email Attachment Organizer &amp; Auto File Management Workflow</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d2" onclick="openProjectModal('xeroasana')">
-          <img src="works/Automated Export Account Transactions from Xero  Upload CSV to Asana (Make).png" alt="Automated Export Account Transactions from Xero" class="portfolio-img">
-          <span class="portfolio-badge badge-purple">Make</span>
-          <h3>Automated Export Account Transactions from Xero &rarr; Upload CSV to Asana</h3>
-        </div>
-
-        <!-- GHL -->
-        <div class="portfolio-card clickable reveal d3" onclick="openProjectModal('leadcaptureghl')">
-          <img src="works/Lead Capture Automation (GHL).png" alt="Lead Capture Automation" class="portfolio-img">
-          <span class="portfolio-badge badge-purple">GoHighLevel</span>
-          <h3>Lead Capture Automation</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d1" onclick="openProjectModal('crmghl')">
-          <img src="works/CRM using GoHighLevel.png" alt="CRM using GoHighLevel" class="portfolio-img">
-          <span class="portfolio-badge badge-purple">GoHighLevel</span>
-          <h3>CRM using GoHighLevel</h3>
-        </div>
-
-        <!-- Zapier -->
-        <div class="portfolio-card clickable reveal d2" onclick="openProjectModal('contentrepurpose')">
-          <img src="works/AI Content Repurposing and Distribution (Zapier).png" alt="AI Content Repurposing and Distribution" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">Zapier</span>
-          <h3>AI Content Repurposing and Distribution</h3>
-        </div>
-
-        <div class="portfolio-card clickable reveal d3" onclick="openProjectModal('leadenrichment')">
-          <img src="works/Lead Enrichment Automation (Zapier).png" alt="Lead Enrichment Automation" class="portfolio-img">
-          <span class="portfolio-badge badge-cyan">Zapier</span>
-          <h3>Lead Enrichment Automation</h3>
-        </div>
-
-
+        <button class="gallery-arrow" id="galleryNext" aria-label="Next work">&#8594;</button>
       </div>
+      <p class="gallery-hint" id="galleryHint">Drag or use arrows &nbsp;&middot;&nbsp; Click to view</p>
     </div>
   </section>
 
@@ -2509,6 +2555,192 @@
         closeProjectModal();
       }
     });
+
+    /* ========================================================
+       CIRCULAR GALLERY
+    ======================================================== */
+    (function () {
+      const ITEMS = [
+        { title: 'HVAC Complete Automation Suite',              img: 'works/HVAC Complete Automation Suite.png',                                                                          badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'hvacsuite'       },
+        { title: 'AI HVAC Lead Capture &amp; Booking Workflow', img: 'works/HVAC Lead Capture & Booking Pipeline.png',                                                                  badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'hvacleadcapture' },
+        { title: 'AI HVAC Follow-up &amp; Reminder Workflow',   img: 'works/HVAC Follow-up & Service Reminder System.png',                                                              badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'hvacfollowup'    },
+        { title: 'Ched AI Agent Receptionist',                  img: 'works/Ched AI Agent Receptionist.png',                                                                              badge: 'AI Agent',     badgeClass: 'badge-cyan',   modalId: 'receptionist'    },
+        { title: 'Facebook AI Agent',                           img: 'works/Facebook AI Agent (n8n).png',                                                                                 badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'facebook'        },
+        { title: 'AI Job Application Assistant',                img: 'works/AI Job Application Assistant (Job Scraper) and Resume Optimizer (n8n).png',                                   badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'jobassistant'    },
+        { title: 'Dental Workflow Automation',                  img: 'works/Dental Workflow Automation (n8n).png',                                                                        badge: 'n8n',          badgeClass: 'badge-cyan',   modalId: 'dental'          },
+        { title: 'AI Email Attachment Organizer',               img: 'works/AI Email Attachment Organizer & Auto File Management Workflow (Make).png',                                  badge: 'Make',         badgeClass: 'badge-purple', modalId: 'emailorganizer'  },
+        { title: 'Xero &rarr; Asana CSV Export',               img: 'works/Automated Export Account Transactions from Xero  Upload CSV to Asana (Make).png',                             badge: 'Make',         badgeClass: 'badge-purple', modalId: 'xeroasana'       },
+        { title: 'Lead Capture Automation',                     img: 'works/Lead Capture Automation (GHL).png',                                                                           badge: 'GoHighLevel',  badgeClass: 'badge-purple', modalId: 'leadcaptureghl'  },
+        { title: 'CRM using GoHighLevel',                       img: 'works/CRM using GoHighLevel.png',                                                                                   badge: 'GoHighLevel',  badgeClass: 'badge-purple', modalId: 'crmghl'          },
+        { title: 'AI Content Repurposing &amp; Distribution',   img: 'works/AI Content Repurposing and Distribution (Zapier).png',                                                        badge: 'Zapier',       badgeClass: 'badge-cyan',   modalId: 'contentrepurpose'},
+        { title: 'Lead Enrichment Automation',                  img: 'works/Lead Enrichment Automation (Zapier).png',                                                                     badge: 'Zapier',       badgeClass: 'badge-cyan',   modalId: 'leadenrichment'  },
+      ];
+
+      const COUNT     = ITEMS.length;
+      const RADIUS    = 750;
+      const ANGLE_PER = 360 / COUNT;
+
+      const ring     = document.getElementById('galleryRing');
+      const stage    = document.getElementById('gallery-stage');
+      const hint     = document.getElementById('galleryHint');
+      const btnPrev  = document.getElementById('galleryPrev');
+      const btnNext  = document.getElementById('galleryNext');
+
+      if (!ring || !stage) return;
+
+      // Build cards
+      let wasDragging = false;
+      const cards = ITEMS.map((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+
+        const img = document.createElement('img');
+        img.className = 'gallery-card-img';
+        img.src = item.img;
+        img.alt = item.title.replace(/&amp;/g, '&').replace(/&rarr;/g, '→');
+        img.loading = 'lazy';
+
+        const badge = document.createElement('span');
+        badge.className = 'portfolio-badge ' + item.badgeClass + ' gallery-card-badge';
+        badge.textContent = item.badge;
+
+        const overlay = document.createElement('div');
+        overlay.className = 'gallery-card-overlay';
+
+        const titleEl = document.createElement('p');
+        titleEl.className = 'gallery-card-title';
+        titleEl.innerHTML = item.title;
+
+        const cta = document.createElement('span');
+        cta.className = 'gallery-card-cta';
+        cta.textContent = 'Click to view';
+
+        overlay.appendChild(titleEl);
+        overlay.appendChild(cta);
+        card.appendChild(img);
+        card.appendChild(badge);
+        card.appendChild(overlay);
+
+        card.style.transform = `rotateY(${i * ANGLE_PER}deg) translateZ(${RADIUS}px)`;
+
+        ring.appendChild(card);
+        return card;
+      });
+
+      // State
+      let rotation        = 0;
+      let velocity        = 0;
+      let snapTarget      = null;
+      let isDragging      = false;
+      let startX          = 0;
+      let lastX           = 0;
+      let lastInteraction = 0;
+      let isHovering      = false;
+      let hintDismissed   = false;
+      let clickTarget     = null;
+
+      // Pointer interaction — document-level so drag works outside the stage
+      // and click detection is not broken by setPointerCapture
+      stage.addEventListener('pointerdown', (e) => {
+        isDragging  = true;
+        wasDragging = false;
+        startX      = e.clientX;
+        lastX       = e.clientX;
+        velocity    = 0;
+        clickTarget = e.target.closest('.gallery-card');
+        stage.classList.add('dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx  = e.clientX - lastX;
+        rotation += dx * 0.3;
+        velocity  = dx;
+        lastX     = e.clientX;
+        lastInteraction = performance.now();
+        if (Math.abs(e.clientX - startX) > 5) wasDragging = true;
+        if (!hintDismissed) {
+          hintDismissed = true;
+          hint.classList.add('hidden');
+        }
+      });
+
+      document.addEventListener('pointerup', () => {
+        if (!isDragging) return;
+        isDragging      = false;
+        lastInteraction = performance.now();
+        stage.classList.remove('dragging');
+        if (!wasDragging && clickTarget) {
+          const idx = cards.indexOf(clickTarget);
+          if (idx !== -1) openProjectModal(ITEMS[idx].modalId);
+        }
+        clickTarget = null;
+      });
+
+      document.addEventListener('pointercancel', () => {
+        if (!isDragging) return;
+        isDragging  = false;
+        clickTarget = null;
+        stage.classList.remove('dragging');
+      });
+
+      stage.addEventListener('mouseenter', () => { isHovering = true;  });
+      stage.addEventListener('mouseleave', () => { isHovering = false; });
+
+      // Arrow buttons — snap one card at a time
+      function snapBy(delta) {
+        const base = snapTarget !== null ? snapTarget : rotation;
+        snapTarget  = base + delta * ANGLE_PER;
+        velocity    = 0;
+        lastInteraction = performance.now();
+        if (!hintDismissed) {
+          hintDismissed = true;
+          hint.classList.add('hidden');
+        }
+      }
+      btnPrev.addEventListener('click', () => snapBy(-1));
+      btnNext.addEventListener('click', () => snapBy(1));
+
+      // rAF loop
+      function tick(now) {
+        if (!isDragging) {
+          if (snapTarget !== null) {
+            // Lerp toward snap target
+            const diff = snapTarget - rotation;
+            if (Math.abs(diff) < 0.08) {
+              rotation   = snapTarget;
+              snapTarget = null;
+            } else {
+              rotation += diff * 0.14;
+            }
+            velocity = 0;
+          } else if (Math.abs(velocity) > 0.05) {
+            rotation += velocity;
+            velocity *= 0.92;
+          } else {
+            velocity = 0;
+            const idle = (now - lastInteraction) > 2000;
+            if (idle && !isHovering) {
+              rotation += 0.012;
+            }
+          }
+        }
+
+        ring.style.transform = `rotateY(${rotation}deg)`;
+
+        cards.forEach((card, i) => {
+          const itemAngle = i * ANGLE_PER;
+          const rel  = ((itemAngle + rotation) % 360 + 360) % 360;
+          const norm = rel > 180 ? 360 - rel : rel;
+          card.style.opacity = Math.max(0.15, 1 - (norm / 180) * 0.85);
+        });
+
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    })();
 
     /* ========================================================
        IMAGE LIGHTBOX
